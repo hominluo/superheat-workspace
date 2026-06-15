@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Superheat™ — From Thermal Hardware to Financial Infrastructure · Whitepaper Memo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#FF5500;
+    --ink:#1F1F1F;
+    --paper:#FFFFFF;
+    --gray:#767676;
+    --card:#F0F0F0;
+    --line:#E0E0E0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{
+    font-family:'Geist',system-ui,sans-serif;font-weight:300;
+    color:var(--ink);background:#888;
+    font-size:9.4pt;line-height:1.52;
+  }
+  @page{size:8.5in 11in;margin:0;}
+  .page{
+    width:8.5in;height:11in;background:var(--paper);
+    padding:.78in .85in .95in;
+    page-break-after:always;position:relative;overflow:hidden;
+    margin:0 auto;
+  }
+  @media screen{.page{margin:16px auto;box-shadow:0 2px 14px rgba(0,0,0,.25);}}
+  .page:last-child{page-break-after:auto;}
+
+  b,strong{font-weight:500;}
+  .mono{font-family:'DM Mono',monospace;}
+  .px{font-family:'Press Start 2P',monospace;}
+  .a{color:var(--orange);}
+
+  /* ---------- cover ---------- */
+  .cover{
+    background:var(--orange);color:var(--paper);
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:.85in;
+  }
+  .cover .wordmark{font-size:26pt;font-weight:400;letter-spacing:-0.04em;}
+  .cover .wordmark sup{font-size:.42em;font-weight:500;}
+  .cover .px-tag{font-family:'Press Start 2P',monospace;font-size:7pt;margin-top:14pt;opacity:.85;line-height:1.8;}
+  .cover .mid .doc-type{
+    font-family:'DM Mono',monospace;font-size:8.5pt;letter-spacing:.22em;text-transform:uppercase;
+    opacity:.85;margin-bottom:14pt;
+  }
+  .cover .mid h1{
+    font-size:34pt;font-weight:400;letter-spacing:-0.05em;line-height:1.02;max-width:7.5in;
+  }
+  .cover .mid .sub{
+    font-size:11.5pt;font-weight:300;line-height:1.5;margin-top:16pt;max-width:5.6in;opacity:.92;
+  }
+  .cover .foot{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    font-family:'DM Mono',monospace;font-size:7.5pt;letter-spacing:.08em;opacity:.9;line-height:1.7;
+  }
+
+  /* ---------- memo header ---------- */
+  .memo-head{border-bottom:2px solid var(--ink);padding-bottom:10pt;margin-bottom:14pt;}
+  .memo-head .brand{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10pt;}
+  .memo-head .brand .wm{font-size:13pt;font-weight:400;letter-spacing:-0.03em;}
+  .memo-head .brand .wm sup{font-size:.45em;}
+  .memo-head .brand .tag{font-family:'Press Start 2P',monospace;font-size:5.4pt;color:var(--orange);}
+  .memo-grid{display:grid;grid-template-columns:.85in 1fr;gap:2pt 10pt;font-size:8.6pt;}
+  .memo-grid dt{font-family:'DM Mono',monospace;font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);padding-top:1.5pt;}
+  .memo-grid dd{font-weight:400;}
+
+  /* ---------- typography ---------- */
+  h2{
+    font-size:13.5pt;font-weight:400;letter-spacing:-0.03em;line-height:1.15;
+    margin:12pt 0 6pt;display:flex;gap:8pt;align-items:baseline;
+  }
+  h2:first-of-type{margin-top:0;}
+  h2 .no{font-family:'DM Mono',monospace;font-size:9pt;color:var(--orange);font-weight:500;}
+  h3{font-size:10pt;font-weight:500;letter-spacing:-0.01em;margin:9pt 0 3pt;}
+  h3 .a{font-weight:500;}
+  p{margin-bottom:6pt;max-width:100%;}
+  p.lede{font-size:10.2pt;line-height:1.55;}
+  ul{margin:0 0 6pt 13pt;}
+  li{margin-bottom:2.5pt;}
+  .gray{color:var(--gray);}
+  .small{font-size:8pt;line-height:1.5;color:var(--gray);}
+  .callout{
+    border-left:3px solid var(--orange);background:var(--card);
+    padding:7pt 10pt;margin:7pt 0;font-size:9.2pt;border-radius:0 6px 6px 0;
+  }
+
+  /* stat row */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10pt;margin:9pt 0;}
+  .stats.c3{grid-template-columns:repeat(3,1fr);}
+  .stat .n{font-family:'DM Mono',monospace;font-size:17pt;font-weight:500;color:var(--orange);letter-spacing:-0.03em;line-height:1;}
+  .stat .n small{font-size:.55em;}
+  .stat .t{font-size:8.6pt;font-weight:400;margin-top:2.5pt;}
+  .stat .d{font-size:7.6pt;color:var(--gray);line-height:1.45;margin-top:1.5pt;}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;font-size:8.2pt;margin:6pt 0 4pt;}
+  th{
+    font-family:'DM Mono',monospace;font-size:6.6pt;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gray);text-align:left;padding:3.5pt 7pt;border-bottom:1pt solid var(--ink);white-space:nowrap;
+  }
+  td{padding:3.8pt 7pt;border-bottom:.5pt solid var(--line);vertical-align:top;line-height:1.4;}
+  tr:nth-child(even) td{background:#FAFAF9;}
+  td b{font-weight:500;}
+  td.num{font-family:'DM Mono',monospace;font-size:7.8pt;white-space:nowrap;}
+  td.hl{color:var(--orange);font-weight:500;}
+  td.num.hl{font-weight:500;}
+  .tbl-cap{font-size:7.6pt;color:var(--gray);line-height:1.5;margin:2pt 0 6pt;}
+
+  /* two-column blocks */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14pt;}
+
+  /* numbered call list */
+  .calls{display:grid;grid-template-columns:1fr 1fr;gap:4pt 14pt;margin:6pt 0;}
+  .calls .c{display:flex;gap:7pt;font-size:8.4pt;line-height:1.4;padding:3pt 0;border-bottom:.5pt solid var(--line);}
+  .calls .no{font-family:'DM Mono',monospace;color:var(--orange);font-weight:500;font-size:8pt;}
+  .calls b{font-weight:500;}
+
+  /* page footer */
+  .pfoot{
+    position:absolute;left:.85in;right:.85in;bottom:.45in;
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:'DM Mono',monospace;font-size:6.8pt;letter-spacing:.1em;color:var(--gray);
+    border-top:.5pt solid var(--line);padding-top:6pt;
+  }
+  .pfoot .o{color:var(--orange);}
+</style>
+</head>
+<body>
+
+<!-- ================= COVER ================= -->
+<section class="page cover">
+  <div>
+    <div class="wordmark">Superheat<sup>™</sup></div>
+    <div class="px-tag">&gt; THE HEATER THAT PAYS YOU BACK_</div>
+  </div>
+  <div class="mid">
+    <div class="doc-type">Whitepaper · Internal Memorandum</div>
+    <h1>From Thermal Hardware<br>to Financial Infrastructure</h1>
+    <div class="sub">The compute-network debt engine: re-underwritten unit economics at live GPU-market prices, a two-product financing architecture, the inaugural securitization design, and the capital map to fund it — consolidated from three research workstreams.</div>
+  </div>
+  <div class="foot">
+    <div>SUPERHEAT™ · COMPUTE-BACKED FINANCE<br>INTERNAL WORKING DRAFT · v1.0</div>
+    <div style="text-align:right;">JUNE 2026<br>CONFIDENTIAL — NOT FOR DISTRIBUTION</div>
+  </div>
+</section>
+
+<!-- ================= PAGE 2 — MEMO HEAD / SUMMARY / WHERE WE STAND ================= -->
+<section class="page">
+  <div class="memo-head">
+    <div class="brand"><span class="wm">Superheat<sup>™</sup></span><span class="tag">&gt; WHITEPAPER MEMO_</span></div>
+    <dl class="memo-grid">
+      <dt>Re</dt><dd>From thermal hardware to financial infrastructure — the compute-network debt engine</dd>
+      <dt>Date</dt><dd>June 2026 · internal working draft v1.0</dd>
+      <dt>Sources</dt><dd>Consolidates: <i>Compute-Network Debt-Engine One-Pager</i> · <i>Recalculated Economics &amp; Debt Business Plan</i> · <i>Partnership &amp; Capital Map</i></dd>
+    </dl>
+  </div>
+
+  <h2><span class="no">0</span>Executive summary</h2>
+  <p class="lede">Superheat’s product was never the water heater, and it is not even the compute. Each installed H1 converts a standing heating bill into a metered compute cash flow, and the durable, high-margin business is <b>originating, packaging, and distributing those cash flows to institutional capital</b> — then recycling the proceeds into the next cohort of units, so the network finances its own growth.</p>
+  <p>This memorandum re-underwrites the business at live June-2026 GPU-market prices and reaches three conclusions. First, at honest utilization a commercial unit nets roughly <b>$12K per year — about one-third of the v3.5 marketing headline, and for the first time underwritable</b>: an 18-month payback, ~45% unlevered IRR, and 2.0× debt-service coverage under full stress. Second, the correct corporate strategy is to manufacture two financial assets — prime home-improvement loans (residential) and contracted thermal-compute cash flows (commercial) — funded through the now-proven GPU-collateral, solar-lease, and home-improvement ABS channels. Third, the counterparties for every stage of that machine exist today and are actively writing comparable deals; this document names them and the specific ask for each.</p>
+  <div class="callout"><b>The loop, ported from autos and solar:</b> originate → season → package → distribute → recycle capital → repeat — while Superheat permanently retains origination fees, the 0.5–2%/yr servicing strip, and the residual. The edge over every predecessor: solar collateral only <i>costs</i> the homeowner money; a Superheat unit <i>pays</i> them.</div>
+
+  <h2><span class="no">1</span>Where Superheat stands</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">1,000+</div><div class="t">Units deployed</div><div class="d">Homes and commercial installs across North America</div></div>
+    <div class="stat"><div class="n">$550K+</div><div class="t">Passive income generated</div><div class="d">Validated, real-world fleet revenue to date</div></div>
+    <div class="stat"><div class="n">~1.0</div><div class="t">Effective PUE</div><div class="d">Cooling cost is zero — heat is the product, not the waste</div></div>
+    <div class="stat"><div class="n">100M</div><div class="t">Device target, 2030</div><div class="d">Manhattan alone holds heat demand ≈ 120–150 large data centers</div></div>
+  </div>
+  <p>The honest reading of the second figure: roughly <b>$300–600 per unit-year realized</b> — largely bitcoin-era units on residential hot-water duty cycles. That matches the residential-DHW row of the model in §3, not the v3.5 headline of $34K per year. It does not invalidate the thesis; it defines the work. The fleet that gets financed must be built on metered commercial AI workloads, and producing that evidence is precisely Phase 1 of the roadmap (§9).</p>
+  <p>A Superheat unit is structurally identical to a solar lease or a financed auto: a one-time hardware placement that throws off a long-dated, contracted, relatively predictable cash flow. A regular heater turns electricity into hot water — a cost center. An H1 turns the same electricity into hot water <b>plus compute revenue</b> — an income-producing asset with two cash legs (variable compute rental income and fixed contracted heat-service fees) and dual collateral: if compute economics soften, the unit is still a working water heater serving a standing heat demand. Once the fleet is seen as a pool of ten-year cash flows, the entire securitization playbook from autos and solar maps directly onto it.</p>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">02 / 09</span></div>
+</section>
+
+<!-- ================= PAGE 3 — MARKET ================= -->
+<section class="page">
+  <h2><span class="no">2</span>What the market actually pays</h2>
+  <p>All revenue assumptions in this memo are anchored to a live marketplace snapshot (Vast.ai, June 11, 2026; median on-demand $/GPU-hr across 40+ data centers):</p>
+  <table>
+    <tr><th>GPU</th><th>VRAM</th><th>Median $/hr</th><th>Range</th><th>Supply</th></tr>
+    <tr><td>B200</td><td class="num">192 GB</td><td class="num hl">$4.06</td><td class="num">3.44 – 7.45</td><td>High</td></tr>
+    <tr><td>H200</td><td class="num">141 GB</td><td class="num hl">$3.55</td><td class="num">1.97 – 7.89</td><td>High</td></tr>
+    <tr><td>H100 SXM</td><td class="num">80 GB</td><td class="num hl">$2.00</td><td class="num">1.47 – 3.93</td><td>Med</td></tr>
+    <tr><td><b>RTX 5090</b></td><td class="num">32 GB</td><td class="num hl">$0.53</td><td class="num">0.21 – 53.33</td><td>High</td></tr>
+    <tr><td><b>RTX 4090</b></td><td class="num">24 GB</td><td class="num hl">$0.40</td><td class="num">0.13 – 12.00</td><td>High</td></tr>
+    <tr><td>RTX 3090</td><td class="num">24 GB</td><td class="num hl">$0.16</td><td class="num">0.08 – 1.33</td><td>High</td></tr>
+  </table>
+  <p class="tbl-cap">Pricing tiers: on-demand (headline), interruptible (−50% or more), reserved 1/3/6-month terms (up to −50%). The platform retains roughly 25–35% of host rental income; the model uses 25%.</p>
+  <p><b>The single most important underwriting input is the price-decline curve.</b> RTX 4090 rentals have fallen from ~$1.84/hr in mid-2024 to a $0.40 marketplace floor — roughly −78%, including a 30% drop within four months of the 5090 launch. H100 rates are down ~64% from their 2023 peak ($8 → ~$3/hr), though not monotonically: one-year contract rates rose ~40% between October 2025 and March 2026 on renewed demand. The memo therefore underwrites <b>consumer-card rental prices declining 20% per year (base case) and 30% per year (stress), over a 5–6-year revenue life per GPU generation</b>. The v3.5 assumption of $0.49/hr flat for ten years is not financeable; a declining curve with fast amortization is. Every number that follows bakes it in.</p>
+
+  <h2><span class="no">3</span>Recalculated unit economics</h2>
+  <h3>3.1 — Full installed cost</h3>
+  <p>Two equivalent 3.3 kW builds, matching the H1 thermal specification, costed at 2026 street prices and including the heater itself and installation (which v3.5 omitted):</p>
+  <table>
+    <tr><th>Component</th><th>8 × RTX 4090 build</th><th>6 × RTX 5090 build</th></tr>
+    <tr><td><b>GPUs</b> (2026 street: 4090 ≈ $1.8K · 5090 ≈ $2.4K)</td><td class="num">$14,400</td><td class="num">$14,400</td></tr>
+    <tr><td><b>Thermal BOM</b> — tank, heat exchanger, immersion loop, power electronics, networking, enclosure</td><td class="num">$2,500</td><td class="num">$2,500</td></tr>
+    <tr><td><b>Installation</b> — plumber + electrician</td><td class="num">$1,100</td><td class="num">$1,100</td></tr>
+    <tr><td><b>Total installed CAPEX</b></td><td class="num hl">$18,000</td><td class="num hl">$18,000</td></tr>
+    <tr><td><b>Gross revenue @ 100% utilization, median rate</b></td><td class="num">$28.0K / yr</td><td class="num">$27.9K / yr</td></tr>
+  </table>
+  <p class="tbl-cap">The GPU price crash cut installed cost ~43% versus the v3.5 deck’s $3,500-per-card era while cutting revenue only ~18% — falling silicon prices are a deployment tailwind. The 5090 build is preferred going forward: newer silicon decays slower and there are two fewer cards to service.</p>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">03 / 09</span></div>
+</section>
+
+<!-- ================= PAGE 4 — SCENARIOS / CONSTRAINT / RETURNS ================= -->
+<section class="page">
+  <h3>3.2 — Per-unit revenue scenarios</h3>
+  <table>
+    <tr><th>Scenario</th><th>Assumptions</th><th>Net / unit-yr</th><th>vs v3.5</th></tr>
+    <tr><td>v3.5 headline</td><td>$0.49 · 100% util · no fees · no electricity</td><td class="num">$34.3K</td><td class="num">—</td></tr>
+    <tr><td>Spot-median ceiling</td><td>$0.40 · 100% util · no fees</td><td class="num">$28.0K</td><td class="num">−18%</td></tr>
+    <tr><td><b>Commercial base ★</b></td><td>60% util · 25% fee · 70% heat-overlap</td><td class="num hl">$11.7K</td><td class="num">−66%</td></tr>
+    <tr><td>Commercial high</td><td>80% util, same fees</td><td class="num">$15.6K</td><td class="num">−54%</td></tr>
+    <tr><td>Residential + space heating</td><td>12,000 kWh/yr thermal load</td><td class="num">$8.5K</td><td class="num">−75%</td></tr>
+    <tr><td>Residential DHW-only</td><td>4,500 kWh/yr hot-water load</td><td class="num">$2.3K</td><td class="num">−93%</td></tr>
+    <tr><td>Debt-sizing stress</td><td>50% util · price −30%</td><td class="num">$6.8K</td><td class="num">−80%</td></tr>
+  </table>
+  <p class="tbl-cap">★ = the base case for all financing math in this memo. The fleet’s own $550K proof point sits on the residential-DHW row — which is exactly why securitized pools are built from commercial units.</p>
+
+  <h3>3.3 — The thermal constraint (the physics of the margin)</h3>
+  <p>Electricity is only “free” while the host actually wants heat — it is an embedded heating bill, not an incremental compute cost. A single-family home’s hot-water load (~4,500 kWh/yr) absorbs only ~16% of a unit’s 28,900 kWh/yr maximum thermal output; a cold-climate home with hydronic space heating absorbs ~45%; <b>hotels, apartment buildings, and campuses absorb 85%+ on near-continuous draw — that is the securitizable asset class.</b> Compute can still run outside heat-demand hours at retail power (~$0.07/GPU-hr cost against a ~$0.30 net rate — thinner margin, never negative when rented), and the tank itself is a thermal battery: scheduling shifts heating into rented hours.</p>
+
+  <h3>3.4 — Returns, commercial base case</h3>
+  <div class="stats">
+    <div class="stat"><div class="n">18<small> mo</small></div><div class="t">Simple payback</div><div class="d">Was 9.8 mo in v3.5; traditional cloud still takes ~1.5–2× longer</div></div>
+    <div class="stat"><div class="n">~45<small>%</small></div><div class="t">Unlevered IRR</div><div class="d">$44.3K cumulative six-year net cash on $18K installed</div></div>
+    <div class="stat"><div class="n">+$14.5K</div><div class="t">NPV per unit @ 12%</div><div class="d">Year-5–6 GPU module swap restarts the curve at then-current prices</div></div>
+    <div class="stat"><div class="n">$1.47M</div><div class="t">Net/yr per 1,000 GPUs</div><div class="d">125 units, $2.25M fully installed — cheaper than v3.5’s GPU-only $3.5M</div></div>
+  </div>
+  <p>Year-by-year net cash per unit at a 20%/yr price decline: <span class="mono">$12.0K → $9.6K → $7.7K → $6.1K → $4.9K → $3.9K</span>. The declining curve is the honest shape of the asset — and the reason the debt amortizes in 5–6 years, not solar’s 25.</p>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">04 / 09</span></div>
+</section>
+
+<!-- ================= PAGE 5 — THE THREE PRODUCTS ================= -->
+<section class="page">
+  <h2><span class="no">4</span>The financing architecture: two assets, two machines</h2>
+  <p>The business splits along the same line the consumer-finance market already splits, with one orchestration and servicing layer underneath both that is never sold.</p>
+  <h3><span class="a">Product A</span> — Residential: the consumer-loan origination machine</h3>
+  <p>The customer owns the unit: <b>$6–9K installed, financed at ~12.5% APR over 10 years ($88–132/month)</b>, with the customer’s share of compute income (~50% of net) running $96–350/month — payment offset up to full coverage; in cold-climate hydronic homes the heater effectively pays its own loan. The template is GoodLeap’s home-improvement ABS shelf, where water heaters are already an eligible asset class: GoodLeap 2026-1 securitized 37,987 loans ($11,960 average, 12.56% WAC, 757 weighted-average FICO), raising $408.9M with 21.9% Class-A enhancement. An H1 loan is the same paper — prime homeowner, UCC-1 on the fixture — <b>plus an income-producing asset behind it</b>: strictly better credit than a window or HVAC loan. Execution sequence: partner-originate (zero balance-sheet risk) → captive origination → forward-flow whole loans at par → own shelf past $200M/yr of originations. Superheat economics per placement: <b>$2.8–5.3K</b> (hardware margin $2–4K, origination fee 2–5%, dealer spread, servicing-strip NPV), mostly cash up front, while the loan lives on someone else’s balance sheet.</p>
+  <h3><span class="a">Product B</span> — Commercial TPO: the securitizable core</h3>
+  <p>Superheat owns the unit (third-party ownership). The host signs a <b>10-year Heat Services Agreement</b> — hot water at 10–20% below grid-equivalent cost, a guaranteed minimum thermal draw, space and metering. Units sit in a bankruptcy-remote AssetCo SPV pledging equipment (UCC-1), HSA contracts, compute receivables, platform accounts, and SPV equity. Each unit carries two cash legs: variable compute revenue (~$12K/yr base) and fixed contracted heat fees ($40–80/month) plus demand-response income. <b>The fixed leg anchors the rating; the compute leg is the excess spread.</b> Debt sizing: 75% advance on $18K = $13.5K per unit; five-year amortizing at ~9% = $3.47K/yr of debt service → <b>DSCR 3.5× base, 2.0× under full stress</b> (50% utilization, −30% price). The collateral precedent is established: CoreWeave’s GPU-backed facilities progressed $2.3B (2023) → $7.5B (2024, Blackstone/Magnetar) → an $8.5B DDTL rated A3 at SOFR+225 (2026) — GPUs in an SPV clear institutional credit committees.</p>
+  <h3><span class="a">Product C</span> — Host equipment financing (optional accelerant)</h3>
+  <p>Vast.ai already operates “Vast Finance,” matching GPU hosts with equipment-collateral leases and revenue-based loans underwritten on verified platform earnings. Superheat can replicate this for franchised installers and building owners who want to own units — originating a third securitizable receivable off its own balance sheet. Dell and HPE Financial Services’ as-a-service GPU programs offer a parallel lever: leasing the compute modules shifts CAPEX off the SPV and simplifies the year-5 refresh covenant.</p>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">05 / 09</span></div>
+</section>
+
+<!-- ================= PAGE 6 — LADDER + SECURITIZATION ================= -->
+<section class="page">
+  <h3>4.1 — The funding ladder, sequenced</h3>
+  <table>
+    <tr><th>Rung</th><th>Instrument</th><th>Size</th><th>Cost (indicative)</th><th>When</th></tr>
+    <tr><td class="num">0</td><td><b>Equity pilot fleet</b> — build the metered tape</td><td class="num">$2–5M</td><td class="num">equity</td><td class="num">now</td></tr>
+    <tr><td class="num">1</td><td><b>Venture debt</b> / equipment lines</td><td class="num">$5–15M</td><td class="num">10–14%</td><td class="num">6–12 mo</td></tr>
+    <tr><td class="num">2</td><td><b>Warehouse SPV</b> — revolving, asset-backed</td><td class="num">$15–50M</td><td class="num">SOFR+250–450</td><td class="num">12–24 mo</td></tr>
+    <tr><td class="num">3</td><td><b>Forward flow</b> — residential loans sold at par</td><td class="num">run-rate</td><td class="num">fees retained</td><td class="num">18–30 mo</td></tr>
+    <tr><td class="num">4</td><td><b>Term ABS</b> — 144A takeout</td><td class="num">$150–400M</td><td class="num">~S+220 (solar comp)</td><td class="num">24–36 mo</td></tr>
+    <tr><td class="num">5</td><td><b>Programmatic + investment-grade path</b></td><td class="num">$0.5–1B/yr</td><td class="num hl">A3 proven (CoreWeave)</td><td class="num">36 mo+</td></tr>
+  </table>
+  <p class="tbl-cap">A <b>warehouse</b> is a revolving loan to a bankruptcy-remote SPV that holds assets until a term takeout — Superheat keeps the upside and bears performance risk. A <b>forward flow</b> is a committed sale at par as originated — the buyer’s balance sheet funds growth and takes credit risk; Superheat keeps origination and servicing fees. Run both: flow for residential volume, warehouse → ABS for the commercial fleet.</p>
+
+  <h2><span class="no">5</span>The inaugural securitization — Compute &amp; Thermal Trust 2027-1</h2>
+  <p>Illustrative term-sheet skeleton. Pool: 10,000 seasoned commercial units (≥12 months of metered history), $180M original cost basis, ~$120M of year-one net collections (base case); $150M of notes issued (~75–80% effective advance, mirroring Sunrun’s 79.3%).</p>
+  <table>
+    <tr><th>Class</th><th>Size</th><th>Target rating</th><th>Enhancement</th><th>Coupon (ind.)</th><th>Who buys</th></tr>
+    <tr><td><b>A</b> — senior</td><td class="num">$105M</td><td class="num">A / A−</td><td class="num">~30%</td><td class="num">S + 200–250</td><td>Insurers, pensions</td></tr>
+    <tr><td><b>B</b> — mezzanine</td><td class="num">$30M</td><td class="num">BBB−</td><td class="num">~12%</td><td class="num">S + 350–450</td><td>Asset managers, structured credit</td></tr>
+    <tr><td><b>C</b> — junior</td><td class="num">$15M</td><td class="num">BB</td><td class="num">~4%</td><td class="num">S + 600–700</td><td>Hedge funds, specialty credit</td></tr>
+    <tr><td><b>Residual</b></td><td class="num hl">retained</td><td class="num">—</td><td class="num">—</td><td class="num hl">excess spread</td><td class="hl">Superheat — never sold</td></tr>
+  </table>
+  <p><b>Enhancement stack and covenants</b> (benchmarked to Sunrun Pangea/Bacchus and Sunnova Sol VI): overcollateralization ~20% (Sunrun comp: 19.5%); six-month senior-interest liquidity reserve; a funded <b>GPU-refresh reserve</b> — the analog of solar’s inverter-replacement reserve and the deal’s novel feature — covering the year-5 module swap; <b>5–6-year amortization matched to GPU revenue life</b>, not solar’s 25; turbo amortization on three-month-average DSCR &lt; 1.5×; cash trap on fleet utilization &lt; 40% or single-platform concentration &gt; 60%; minimum metered-uptime SLA per unit; named backup servicer with escrowed orchestration runbooks.</p>
+  <div class="callout"><b>Rating calibration (verified against the June-2026 comp set).</b> Single-A senior is the market print for this collateral family, not conservatism: GoodLeap 2026-1 priced A−/BBB/BB−; Sunrun’s 2026 deal printed A− seniors (its record 2024 deal reached A+, sixteen securitizations in); Vantage data-center ABS prints A−; CoreWeave’s GPU facility is rated A3. AA/AAA exists only for seasoned paper — Mosaic’s AAA came on upgrade with ~50% enhancement, and Switch’s AAA reflects twenty years of operating history. For a first-of-a-kind issuer, A/A− is the ambitious end of realistic and BBB+ is the quiet downside case; the structure works at either, since the base DSCR of 3.5× absorbs the ~40–60 bps coupon difference.</div>
+  <p><b>Market readiness.</b> The rulebook now exists — none of it did two years ago: KBRA published data-center ABS criteria (Jan 2026) and already rates the GoodLeap shelf; Moody’s (Feb 2025), S&amp;P (2024, revised 2025), and Fitch (2025 drafts) followed. Roughly <b>$57B of US data-center securitization has priced since 2021 (~$26B in 2025 alone; $30–40B/yr projected through 2027)</b> — and every deal in that market is single-campus risk. A 10,000-site distributed pool is a portfolio-construction gift to a starved buyer base. Plan: engage KBRA plus one of Moody’s/S&amp;P at warehouse stage with the metered tape; target a rated deal within 12 months of warehouse close.</p>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">06 / 09</span></div>
+</section>
+
+<!-- ================= PAGE 6 — CONTRACTED REVENUE + RISK ================= -->
+<section class="page">
+  <h2><span class="no">6</span>Manufacturing contracted revenue (rating fuel)</h2>
+  <p>Solar’s most profitable layer was never the electricity — it was monetizing incentives and contracts. Every contracted GPU-hour and hedged dollar moves the rating up and the coupon down — the difference between BB paper and A paper.</p>
+  <ul>
+    <li><b>Demand response / VPP enrollment</b> — $20–100 per unit-year of utility-grade income. EnergyHub already aggregates Rheem water heaters for 30+ utilities (the integration is pre-built for this device class); DOE prices VPP capacity at roughly half a gas peaker. At 100K units: $2–10M/yr of contracted income.</li>
+    <li><b>Reserved-instance compute</b> — 1/3/6-month committed terms convert spot exposure into contract; SF Compute’s forward market can sell 12–24-month strips on a fleet slice. Covenant target: ≥30% of fleet GPU-hours contracted by deal close.</li>
+    <li><b>Heat-services agreements</b> — the HSA minimum-draw clause is itself a contracted commodity sale: heat-as-a-service, the direct analog of a solar PPA, on every commercial unit.</li>
+    <li><b>Incentives monetized at origination</b> — efficiency rebates, electrification programs, accelerated depreciation packaged into tax-equity partnerships, and Luxor hashprice forwards on legacy ASIC units — taken up front, GoodLeap-style, to compress the CAPEX basis.</li>
+  </ul>
+
+  <h2><span class="no">7</span>Risk register and the anti-pattern file</h2>
+  <table>
+    <tr><th>Risk</th><th>Reality check</th><th>Structural answer</th></tr>
+    <tr><td><b>Compute-price decline</b></td><td>4090 −78% in two years; H100 −64% from peak</td><td>−20/−30%/yr in sizing · 5–6-yr amortization · turbo triggers · funded refresh reserve</td></tr>
+    <tr><td><b>Utilization shortfall</b></td><td>Fleet history ≈ $550/unit-yr, far below model</td><td>Only seasoned, metered commercial units enter pools · reserved-instance floor</td></tr>
+    <tr><td><b>Thermal-demand shortfall</b></td><td>Free power exists only when heat is needed</td><td>HSA minimum-draw covenants · commercial-first · tank-as-battery scheduling</td></tr>
+    <tr><td><b>Platform dependence</b></td><td>One marketplace’s rules hit the whole pool</td><td>Multi-platform covenant · 60% concentration cash trap · direct enterprise contracts</td></tr>
+    <tr><td><b>Issuance-market freeze</b></td><td>The 2008 / Carvana failure mode</td><td>Growth gated by committed facilities ≥ 12 months of origination</td></tr>
+    <tr><td><b>Gain-on-sale optics</b></td><td>Carvana’s credibility trap</td><td>Conservative recognition · quarterly static-pool curves · retained residual (skin in the game)</td></tr>
+    <tr><td><b>Servicer concentration</b></td><td>“Only Superheat can run it”</td><td>Backup-servicer agreement · escrowed orchestration runbooks and code</td></tr>
+    <tr><td><b>Refresh execution</b></td><td>The year-5 GPU swap must actually happen</td><td>Reserve funded inside the trust · modular hardware design requirement</td></tr>
+  </table>
+  <h3>Why the dead died — and why this structure won’t</h3>
+  <ul>
+    <li><b>Monoline ABS dependence</b> (Mosaic ’25 · Sunlight ’23 · Sunnova ’25 — all Chapter 11) — one revenue leg, assumed take-out. <span class="a">Counter:</span> hardware margin, servicing, and compute are independent legs; growth gated by committed capital, never assumed take-out.</li>
+    <li><b>Hidden dealer fees</b> (MN AG v. GoodLeap/Sunlight/Mosaic/Dividend — $35M). <span class="a">Counter:</span> a published, transparent dealer fee; income-producing collateral removes the incentive to stuff fees.</li>
+    <li><b>Duration mismatch</b> (Mosaic’s failed refinancing) — 25-year paper funded short into a rate spike. <span class="a">Counter:</span> 5–6-year amortizing structures matched to GPU life.</li>
+    <li><b>Collateral that only costs the borrower</b> (every solar-loan book). <span class="a">Counter:</span> the H1 pays the borrower.</li>
+  </ul>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">07 / 09</span></div>
+</section>
+
+<!-- ================= PAGE 7 — CAPITAL MAP ================= -->
+<section class="page">
+  <h2><span class="no">8</span>The capital map: who funds this, lane by lane</h2>
+  <p>This stage does not need generalist VCs; it needs asset people. The value is cheap leverage, origination volume, and a retained servicing annuity — and every unit funded with equity instead of debt damages the ROE story. Six lanes, pre-scouted, all open now:</p>
+  <table>
+    <tr><th>Lane</th><th>Lead target</th><th>Bench</th></tr>
+    <tr><td><b>Residential origination</b></td><td class="hl">GoodLeap</td><td>GreenSky (Sixth Street) · Service Finance (Truist) · Synchrony · Wisetack/Hearth · Cross River for the captive phase</td></tr>
+    <tr><td><b>Warehouse</b></td><td class="hl">ATLAS SP (Apollo)</td><td>Jefferies · Goldman · Citi/CIBC (GoodLeap’s bookrunners) · MUFG/SocGen · Victory Park · Ares ABF</td></tr>
+    <tr><td><b>Forward flow</b></td><td class="hl">Castlelake</td><td>Blue Owl/Atalaya · Sixth Street · Fortress · PIMCO · insurance: Athene, Eldridge, MassMutual</td></tr>
+    <tr><td><b>GPU-literate debt</b></td><td class="hl">Macquarie</td><td>Magnetar · Blackstone · the CoreWeave syndicate · Dell/HPE Financial Services</td></tr>
+    <tr><td><b>Equity / first-loss</b></td><td class="hl">Upper90 + Generate Capital</td><td>Spring Lane · HASI · CoVenture · i80 · Architect · Tacora</td></tr>
+    <tr><td><b>Strategic / demand</b></td><td class="hl">NVIDIA · Octopus Energy</td><td>Centrica · Rheem/Navien · KEPCO/Tokyo Gas · EnergyHub · Renew Home · SF Compute · Luxor</td></tr>
+  </table>
+  <p><b>The validation is already on the tape.</b> Upper90 was first institutional capital into Crusoe (the canonical energy-compute crossover); Generate Capital extended up to $100M to Soluna (2025); Octopus Energy put £200M into Deep Green (2024) for a weaker version of this thesis; British Gas/Centrica is running a live Heata trial — compute on domestic hot-water cylinders, our exact form factor at ARM-server scale; Macquarie wrote a $500M GPU-collateral loan to Lambda; Castlelake has signed $9B+ of forward flows and renewed Upstart three times; NVIDIA backstops $6.3B of CoreWeave capacity through 2032; A2A feeds Qarnot’s digital-boiler heat into Milan district heating. Used H100s traded at 60–70% of original price in 2025 — the memo underwrites consumer-card recovery at a conservative 30–40%.</p>
+  <p><b>The NVIDIA track, in three asks:</b> Inception membership now; NVentures strategic equity at Phase 2; and — the prize — a capacity backstop on fleet GPU-hours, the single most rating-positive contract Superheat could sign.</p>
+  <h3>The first ten calls</h3>
+  <div class="calls">
+    <div class="c"><span class="no">01</span><span><b>Upper90</b> — lead $10–20M hybrid equity + first-loss. They did Crusoe; thirty-second pitch.</span></div>
+    <div class="c"><span class="no">02</span><span><b>Generate Capital</b> — programmatic project capital for commercial TPO units.</span></div>
+    <div class="c"><span class="no">03</span><span><b>GoodLeap</b> — H1 as an approved financed product; 500-loan pilot via their contractor app.</span></div>
+    <div class="c"><span class="no">04</span><span><b>ATLAS SP</b> — $25–50M warehouse term sheet on the seasoned commercial fleet.</span></div>
+    <div class="c"><span class="no">05</span><span><b>Castlelake</b> — forward-flow LOI, contingent on the 12-month tape.</span></div>
+    <div class="c"><span class="no">06</span><span><b>NVIDIA</b> — Inception now; backstop conversation past 10K GPUs.</span></div>
+    <div class="c"><span class="no">07</span><span><b>Octopus Energy</b> — UK/EU strategic round + Kraken-channel pilot.</span></div>
+    <div class="c"><span class="no">08</span><span><b>Spring Lane</b> — $20–30M project equity for the missing middle.</span></div>
+    <div class="c"><span class="no">09</span><span><b>EnergyHub</b> — fleet-wide VPP enrollment; the Rheem integration as template.</span></div>
+    <div class="c"><span class="no">10</span><span><b>Macquarie</b> — GPU-collateral warehouse alternative; keeps ATLAS honest.</span></div>
+  </div>
+  <p class="small">Keep warm, no call needed yet: Sixth Street/GreenSky · Blue Owl · Magnetar/Blackstone · Eldridge · SF Compute · Rheem/Navien.</p>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">08 / 09</span></div>
+</section>
+
+<!-- ================= PAGE 8 — ROADMAP + CONCLUSION ================= -->
+<section class="page">
+  <h2><span class="no">9</span>Roadmap: four phases to a self-funding machine</h2>
+  <table>
+    <tr><th>Phase</th><th>Window</th><th>Work</th><th>Exit criteria</th></tr>
+    <tr><td><b>1 · Build the tape</b></td><td class="num">now → 12 mo</td><td>Deploy 1,000–2,000 commercial units ($18–36M, equity + venture debt). Meter everything: GPU-hours, realized $/hr, utilization, uptime, thermal draw, host payment behavior. Launch residential through a partner originator at zero balance-sheet cost.</td><td>12 months of clean monthly tape on ≥1,000 units; ≥30% contracted revenue share</td></tr>
+    <tr><td><b>2 · Warehouse + forward flow</b></td><td class="num">12–24 mo</td><td>Close a $25–50M revolving warehouse (~70–75% advance) against the seasoned fleet; sign residential forward-flow commitments; pre-engage KBRA/Moody’s; enroll the fleet in demand-response programs.</td><td>Warehouse ≥70% utilized; DSCR ≥2.5× trailing six months; rating pre-read complete</td></tr>
+    <tr><td><b>3 · Inaugural ABS</b></td><td class="num">24–36 mo</td><td>Price the $150M Compute &amp; Thermal Trust 2027-1 (§5); recycle proceeds into the next 8,000–10,000 units; retain servicing strip and residual.</td><td>Priced inside S+300 blended; advance ≥75%</td></tr>
+    <tr><td><b>4 · Programmatic</b></td><td class="num">36 mo+</td><td>2–4 deals/yr on separate residential and commercial shelves; pursue investment-grade senior classes on the CoreWeave precedent; international thermal-utility partnerships.</td><td>At 100K units: ~$1.2B/yr collections supporting ~$1.4B of standing ABS — growth compounds on other people’s balance sheets</td></tr>
+  </table>
+
+  <h2><span class="no">10</span>Conclusion</h2>
+  <p class="lede">Traditional data centers raise capital, build a single concentrated campus, and burn 40–90% of their energy on cooling. Superheat instead originates millions of distributed, dual-use compute nodes whose energy is already paid for as heating — then industrializes the origination, packaging, and distribution of those contracted cash flows into a new institutional asset class, recycling the capital to grow the network without dilution.</p>
+  <div class="callout" style="font-size:11pt;line-height:1.5;"><b>The heater is the commodity. The manufactured cash flow is the business.</b></div>
+  <p>At live June-2026 prices and honest utilization, the per-unit numbers are roughly one-third of the v3.5 headline — and they are finally the kind of numbers an underwriter can sign: ~$12K net per commercial unit-year, an 18-month payback, ~45% unlevered IRR, and twice-covered debt service under full stress. The collateral has working comparables in three proven ABS channels, the rating methodologies were published within the last eighteen months, and the specific counterparties for every rung of the funding ladder are writing checks into adjacent deals this quarter. What remains is execution: build the metered tape, gate growth on committed capital, and never sell the servicing layer.</p>
+
+  <h3>Assumptions and sourcing</h3>
+  <p class="small">Figures marked as assumptions in the underlying workstreams (thermal BOM $2,500; installation $1,100; platform fee 25%; heat-overlap 70%; price decline 20%/yr base, 30%/yr stress) should be replaced with actuals as metered data accumulates. Market facts are sourced in the three companion documents: Vast.ai live pricing snapshot (June 11, 2026); CoreWeave facility disclosures and Moody’s rating; Sunrun, Sunnova, GoodLeap, and Mosaic securitization reports (KBRA/ASR); data-center ABS market sizing (GlobalCapital, CRA Insights); VPP economics (DOE, Portland General Electric); and named-deal evidence for every counterparty in §8. Securitization structures herein are proposed, not executed — validate with structuring counsel and an ABS bookrunner. Realized fleet income to date (~$300–600/unit-yr) is the deck-reported $550K+ across 1,000+ units, largely bitcoin-era residential duty cycles.</p>
+  <p class="small">Companion documents: <i>Superheat_Compute-Network_Debt-Engine_Onepager.md</i> · <i>Superheat_Recalculated_Economics_and_Debt_Business_Plan.md</i> · <i>Superheat_Partnership_and_Capital_Map.md</i> · presentation: <i>superheat_strategy_deck.html / .pdf</i>.</p>
+
+  <div class="pfoot"><span>SUPERHEAT™ · WHITEPAPER MEMO · 06.2026</span><span class="o">09 / 09</span></div>
+</section>
+
+</body>
+</html>
