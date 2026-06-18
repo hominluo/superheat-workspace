@@ -37,6 +37,8 @@ The design is **8 documents** (consolidated from an earlier 19):
 | [`financial-and-roadmap.md`](gpu-system-design/financial-and-roadmap.md) | CAPEX reconciliation (~$20–22K), the OPEX model + corrected declining-stream waterfall (IRR/DSCR with financing assumptions, utilization sensitivity), the Phase A→B→C build roadmap, and the consolidated R1–R15 risk register | underwriting |
 | [`operations.md`](gpu-system-design/operations.md) | Observability/SLO catalog + incident runbooks + DR/HA, testing & fleet-scale simulation + release gates, and field ops (installer certification, provisioning, RMA, year-5 swap, **homeowner-churn / node recovery**, onboarding) | cross-cutting |
 
+**To build it:** [`build-plan.md`](gpu-system-design/build-plan.md) — the actionable, step-by-step playbook distilled from the 8 design docs: the blocking decisions, foundational setup, and the Phase A→B→C build steps (each with action · prerequisites · "done when" · design-doc pointer), plus a master checklist.
+
 ### The six founding questions
 
 1. Remote operations & maintenance of scattered single GPU nodes → `node.md`, `connectivity-and-data.md`, `platform.md`
