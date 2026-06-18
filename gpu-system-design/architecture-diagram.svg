@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="860" viewBox="0 0 1000 860" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+    <style>
+      .layer { fill:#ffffff; stroke:#888; stroke-width:1.5; rx:10; }
+      .ltitle { font-size:15px; font-weight:700; fill:#111; }
+      .lq { font-size:11px; font-weight:700; fill:#fff; }
+      .comp { font-size:12px; fill:#1a1a1a; }
+      .note { font-size:11px; fill:#444; }
+      .big { font-size:20px; font-weight:700; fill:#111; }
+      .sub { font-size:12px; fill:#555; }
+      .flow { stroke:#555; stroke-width:1.6; fill:none; }
+      .princ { font-size:11px; fill:#333; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="32" y="40" class="big">Superheat — GPU Compute Network Architecture</text>
+  <text x="32" y="62" class="sub">Distributed RTX 4090 nodes embedded in water heaters · outbound-only · thermally coupled · hybrid demand</text>
+
+  <!-- Renters band -->
+  <rect x="32" y="82" width="800" height="44" rx="10" fill="#1f2937"/>
+  <text x="52" y="110" fill="#fff" font-size="14" font-weight="700">RENTERS</text>
+  <text x="150" y="110" fill="#cbd5e1" font-size="12">marketplaces (vast.ai · RunPod · Salad · io.net · Akash) · direct/enterprise API · reserved contracts · own batch backlog</text>
+
+  <!-- Layer 5: Demand -->
+  <rect x="32" y="146" width="800" height="92" class="layer" fill="#eef6ff"/>
+  <rect x="32" y="146" width="46" height="92" rx="10" fill="#2563eb"/>
+  <text x="55" y="196" class="lq" transform="rotate(-90 55,196)" text-anchor="middle">DEMAND</text>
+  <text x="92" y="170" class="ltitle">5 · Demand layer — hybrid routing</text>
+  <text x="92" y="192" class="comp">• Marketplace connectors → normalized internal job model</text>
+  <text x="92" y="210" class="comp">• Own / direct demand + interruptible batch filler</text>
+  <text x="500" y="192" class="comp" font-weight="700">YIELD ROUTER</text>
+  <text x="500" y="210" class="comp">highest $/GPU-hr per node-hour · concentration guard (60%)</text>
+  <text x="840" y="196" class="note">Q4 · Q5</text>
+  <text x="840" y="212" class="note">demand-routing.md</text>
+
+  <!-- Layer 4: Control plane -->
+  <rect x="32" y="252" width="800" height="118" class="layer" fill="#f3f0ff"/>
+  <rect x="32" y="252" width="46" height="118" rx="10" fill="#7c3aed"/>
+  <text x="55" y="311" class="lq" transform="rotate(-90 55,311)" text-anchor="middle">CONTROL PLANE</text>
+  <text x="92" y="276" class="ltitle">4 · Control plane (cloud brain)</text>
+  <text x="92" y="298" class="comp">• Registry / inventory   • Telemetry &amp; observability   • OTA orchestrator (canary→fleet)</text>
+  <text x="92" y="318" class="comp">• Scheduler   • Thermal coordinator (tank = battery)   • Reliability/uptime scoring</text>
+  <text x="92" y="338" class="comp" font-weight="700">• Metering &amp; billing ledger ──────────► securitization tape</text>
+  <text x="92" y="357" class="note">build: scheduler, thermal coordinator, ledger · buy: Postgres/Supabase, TSDB, fleet/OTA tool</text>
+  <text x="840" y="306" class="note">Q1·Q5·Q6</text>
+  <text x="840" y="322" class="note">control-plane.md</text>
+
+  <!-- Layer 3: Connectivity -->
+  <rect x="32" y="384" width="800" height="74" class="layer" fill="#ecfdf5"/>
+  <rect x="32" y="384" width="46" height="74" rx="10" fill="#059669"/>
+  <text x="55" y="421" class="lq" transform="rotate(-90 55,421)" text-anchor="middle">CONNECT</text>
+  <text x="92" y="408" class="ltitle">3 · Connectivity — solving NAT</text>
+  <text x="92" y="430" class="comp">• Outbound-only WireGuard overlay mesh (headscale/Nebula)   • Relay/TURN fallback for CGNAT</text>
+  <text x="92" y="448" class="comp">• Carries control · telemetry · OTA · remote console · renter sessions — zero inbound ports</text>
+  <text x="840" y="424" class="note">Q1 · Q6</text>
+  <text x="840" y="440" class="note">connectivity.md</text>
+
+  <!-- Layer 2: Node software -->
+  <rect x="32" y="472" width="800" height="74" class="layer" fill="#fff7ed"/>
+  <rect x="32" y="472" width="46" height="74" rx="10" fill="#ea580c"/>
+  <text x="55" y="509" class="lq" transform="rotate(-90 55,509)" text-anchor="middle">NODE SW</text>
+  <text x="92" y="496" class="ltitle">2 · Node software &amp; OS</text>
+  <text x="92" y="518" class="comp">• Immutable Linux + A/B updates + auto-rollback   • Node agent (state machine, control loop)</text>
+  <text x="92" y="536" class="comp">• Container/microVM tenant isolation · egress firewall · watchdog · local safety wins</text>
+  <text x="840" y="512" class="note">Q1 · Q2</text>
+  <text x="840" y="528" class="note">node-software-os.md</text>
+
+  <!-- Layer 1: Node hardware -->
+  <rect x="32" y="560" width="800" height="86" class="layer" fill="#fef2f2"/>
+  <rect x="32" y="560" width="46" height="86" rx="10" fill="#dc2626"/>
+  <text x="55" y="603" class="lq" transform="rotate(-90 55,603)" text-anchor="middle">HARDWARE</text>
+  <text x="92" y="584" class="ltitle">1 · Node hardware — inside the water heater</text>
+  <text x="92" y="606" class="comp">• H1: 1× RTX 4090 (3.3 kW)   • Commercial: 8× RTX 4090 (~3.3 kW GPU)   • thermal coupling → tank</text>
+  <text x="92" y="624" class="comp">• ~412–450 W/GPU · NIC + cellular failover · thermal MCU + safety interlock · field-swappable GPU (yr-5)</text>
+  <text x="92" y="641" class="note">fail-safe: a dead compute node still works as an ordinary water heater</text>
+  <text x="840" y="598" class="note">Q2 · Q3</text>
+  <text x="840" y="614" class="note">node-hardware.md</text>
+
+  <!-- Flow arrows down the left spine -->
+  <path class="flow" d="M 16,104 L 16,820" marker-end="url(#arrow)"/>
+  <text x="20" y="740" class="sub" transform="rotate(-90 20,740)" text-anchor="middle">request / job flow ↓   ·   telemetry &amp; payout ↑</text>
+
+  <!-- Data I/O side rail -->
+  <rect x="852" y="146" width="116" height="500" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="910" y="170" class="ltitle" text-anchor="middle" font-size="13">DATA I/O</text>
+  <text x="910" y="186" class="note" text-anchor="middle">(spans all layers)</text>
+  <text x="862" y="214" class="comp" font-size="11">• Regional</text>
+  <text x="862" y="230" class="comp" font-size="11">  content-addressed</text>
+  <text x="862" y="246" class="comp" font-size="11">  cache + pre-stage</text>
+  <text x="862" y="276" class="comp" font-size="11">• Checkpoint /</text>
+  <text x="862" y="292" class="comp" font-size="11">  resume (preempt-</text>
+  <text x="862" y="308" class="comp" font-size="11">  safe)</text>
+  <text x="862" y="338" class="comp" font-size="11">• Bandwidth-aware</text>
+  <text x="862" y="354" class="comp" font-size="11">  placement</text>
+  <text x="862" y="384" class="comp" font-size="11">• Persistent vols,</text>
+  <text x="862" y="400" class="comp" font-size="11">  clear eviction</text>
+  <text x="862" y="430" class="comp" font-size="11">• Hides slow</text>
+  <text x="862" y="446" class="comp" font-size="11">  consumer uplink</text>
+  <text x="910" y="616" class="note" text-anchor="middle">Q6</text>
+  <text x="910" y="632" class="note" text-anchor="middle" font-size="10">data-io.md</text>
+
+  <!-- Cross-cutting band: Security + Utilization + Roadmap -->
+  <rect x="32" y="664" width="936" height="56" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="48" y="686" class="ltitle" font-size="13">Cross-cutting:</text>
+  <text x="170" y="686" class="comp">Security &amp; trust (3-way isolation · no-TEE limit · trusted-host tier) — security-trust.md</text>
+  <text x="170" y="704" class="comp">Utilization engine (thermal battery · filler · reserved · VPP) — utilization-engine.md   ·   Roadmap &amp; risks — roadmap-and-risks.md</text>
+
+  <!-- Design principles footer -->
+  <rect x="32" y="736" width="936" height="92" rx="10" fill="#111827"/>
+  <text x="48" y="760" fill="#fff" font-size="13" font-weight="700">Five design principles (drive every decision above)</text>
+  <text x="48" y="782" fill="#e5e7eb" class="princ">1 · Outbound-only networking (residential NAT/CGNAT)        2 · Fail-safe to a water heater (never brick, never lose hot water)</text>
+  <text x="48" y="800" fill="#e5e7eb" class="princ">3 · Compute is thermally coupled (the tank is a battery)        4 · Measure, then price, reliability</text>
+  <text x="48" y="818" fill="#e5e7eb" class="princ">5 · Hybrid demand (marketplaces for fill + own demand for margin; route to highest yield)</text>
+</svg>
